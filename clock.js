@@ -8,10 +8,17 @@ const displayClock = () => {
   const minutes = addLeadingZero(clock.getMinutes());
   const seconds = addLeadingZero(clock.getSeconds());
 
-  const isAm = hours < 12;
-  const meridiem = isAm ? 'AM' : 'PM';
+  const isAm = hours < 12 || 0;
+  let meridiem = isAm ? 'AM' : 'PM';
   hours = hours >= 13 ? hours - 12 : hours;
+
+  if (hours === 0) {
+    meridiem = 'AM';
+    hours += 12;
+  }
+
   const clockDisplay = hours + ':' + minutes + ':' + seconds + ' ' + meridiem;
+
   document.getElementById('clock').textContent = clockDisplay;
 
   console.log(clock.getHours());
